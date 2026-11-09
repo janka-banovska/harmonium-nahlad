@@ -1,0 +1,334 @@
+/* Harmónium — náhľad nového webu
+   Farebný systém podľa artboardu "Farebný princíp":
+   rovina 1 svetlé plochy, rovina 2 tmavé plochy, vínová akcent, zlatá len na tmavom. */
+
+:root{
+  color-scheme: light;
+
+  /* rovina 1 — svetlé plochy, pozadia sekcií */
+  --piesok:#d7d3c8;
+  --piesok-svetly:#ebe7dc;
+  --salvia:#dde0d2;
+  --hlina:#e8d8cc;
+
+  /* rovina 2 — tmavé plochy */
+  --mlyn:#171a18;
+  --mach:#44523e;
+  --voda:#35565b;
+  --tehla:#7a3a2a;
+
+  /* akcent */
+  --vinova:#9f3a17;
+  --vinova-tmava:#7d2d11;
+  --zlata:#c49a5a;
+
+  /* text */
+  --text:#171a18;
+  --text-2:#2e3330;
+  --text-3:#4a4f4c;
+  --na-tmavom:#ebe7dc;
+  --na-tmavom-2:#cbc5b7;
+  --linka:#bdb7a8;
+  --linka-jemna:#cdc8ba;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --text:#171a18; --piesok-svetly:#ebe7dc; }
+}
+:root[data-theme="dark"]{ --text:#171a18; --piesok-svetly:#ebe7dc; }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:80px}
+body{
+  margin:0; background:var(--piesok-svetly); color:var(--text);
+  font-family:Manrope, system-ui, -apple-system, sans-serif;
+  font-size:18px; line-height:1.65; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block}
+.wrap{width:100%; max-width:1200px; margin:0 auto; padding:0 16px}
+@media(min-width:760px){ .wrap{padding:0 40px} }
+
+/* ---------- typografia ---------- */
+.display{font-family:"Barlow Condensed",Impact,sans-serif; font-weight:800; font-size:clamp(44px,7.4vw,92px); line-height:.9; letter-spacing:-.02em; text-transform:uppercase; margin:0}
+.h2{font-family:"Barlow Condensed",Impact,sans-serif; font-weight:800; font-size:clamp(32px,4.7vw,56px); line-height:.95; letter-spacing:-.015em; text-transform:uppercase; margin:0}
+.h3{font-size:21px; font-weight:700; line-height:1.3; margin:0; letter-spacing:-.01em}
+.lead{font-size:clamp(19px,2.1vw,23px); line-height:1.5; margin:0; font-weight:500}
+p{margin:0 0 1em}
+.measure{max-width:62ch}
+.small{font-size:14.5px; line-height:1.55}
+.tag{font-family:"Barlow Condensed",sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.18em; font-size:13px; margin:0}
+.quiet{color:var(--text-3)}
+.on-dark .quiet{color:var(--na-tmavom-2)}
+.on-dark .lead{color:rgba(235,231,220,.84)}
+
+/* ---------- výzvy ---------- */
+.btn{display:inline-flex; align-items:center; gap:10px; background:var(--vinova); color:var(--piesok-svetly);
+  text-decoration:none; font-weight:700; font-size:16px; padding:16px 28px; border:0; cursor:pointer;
+  transition:background .18s ease, transform .18s ease; font-family:inherit}
+.btn:hover{background:var(--vinova-tmava); transform:translateY(-1px)}
+.btn .ar{font-family:system-ui; font-size:17px; line-height:1}
+.btn-ghost{display:inline-flex; align-items:center; gap:10px; background:transparent; color:inherit;
+  text-decoration:none; font-weight:700; font-size:16px; padding:16px 26px; border:1px solid currentColor;
+  transition:background .18s ease}
+.btn-ghost:hover{background:rgba(235,231,220,.12)}
+.link{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:700; font-size:16px;
+  border-bottom:1px solid var(--vinova); color:var(--vinova); padding-bottom:3px; transition:gap .18s ease}
+.link:hover{gap:15px}
+.link-zlata{color:var(--zlata); border-bottom-color:rgba(196,154,90,.6)}
+
+/* ---------- pruh náhľadu ---------- */
+.preview-bar{background:var(--mlyn); color:var(--na-tmavom-2); font-size:12.5px; letter-spacing:.06em;
+  text-transform:uppercase; font-family:"Barlow Condensed",sans-serif; font-weight:600; padding:9px 0}
+.preview-bar .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+.preview-bar a{color:var(--zlata)}
+
+/* ---------- hlavička ---------- */
+.nav{position:sticky; top:0; z-index:40; background:var(--mlyn); transition:box-shadow .25s ease}
+.nav.over{background:linear-gradient(to bottom, rgba(23,26,24,.82) 0%, rgba(23,26,24,.45) 60%, rgba(23,26,24,0) 100%)}
+.nav.over.solid{background:var(--mlyn)}
+.nav .wrap{display:flex; align-items:center; gap:24px; height:80px}
+.mark{font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:27px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--na-tmavom); text-decoration:none; line-height:1}
+.mark small{display:block; font-size:10.5px; letter-spacing:.3em; font-weight:600; color:var(--na-tmavom-2); margin-top:3px}
+.nav-links{display:none; gap:24px; margin-left:auto}
+@media(min-width:1060px){ .nav-links{display:flex} }
+.nav-links a{color:#d2cdbf; text-decoration:none; font-size:15px; font-weight:600; padding:6px 0; border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.on{color:var(--na-tmavom); border-bottom-color:var(--vinova)}
+.nav .btn{margin-left:auto; padding:12px 22px; font-size:15px}
+@media(min-width:1060px){ .nav .btn{margin-left:0} }
+
+/* ---------- drobček ---------- */
+.crumb{background:var(--mlyn); color:#8c877a; font-size:13.5px; padding:0 0 20px}
+.crumb a{color:var(--na-tmavom-2); text-decoration:none}
+.crumb a:hover{color:var(--na-tmavom)}
+
+/* ---------- pásy ---------- */
+.band{padding:clamp(60px,8.5vw,116px) 0}
+.b-piesok{background:var(--piesok)}
+.b-piesok-svetly{background:var(--piesok-svetly)}
+.b-salvia{background:var(--salvia)}
+.b-hlina{background:var(--hlina)}
+.b-mlyn{background:var(--mlyn); color:var(--na-tmavom)}
+.b-mach{background:var(--mach); color:var(--na-tmavom)}
+.b-voda{background:var(--voda); color:var(--na-tmavom)}
+.b-tehla{background:var(--tehla); color:var(--na-tmavom)}
+.sec-head{margin-bottom:clamp(34px,4.8vw,60px)}
+.sec-head .tag{color:var(--vinova); margin-bottom:16px}
+.on-dark .sec-head .tag{color:var(--zlata)}
+.sec-head .h2{margin-bottom:18px}
+.sec-head .lead{color:var(--text-2); max-width:34em}
+
+/* ---------- hero ---------- */
+.hero{position:relative; min-height:680px; display:flex; flex-direction:column; justify-content:flex-end; margin-top:-80px; padding-top:80px}
+@media(min-width:900px){ .hero{min-height:90vh} }
+.hero-bg{position:absolute; inset:0; background-size:cover; background-position:62% 56%}
+.hero-scrim{position:absolute; inset:0; background:
+  linear-gradient(100deg, rgba(14,17,15,.93) 0%, rgba(14,17,15,.80) 36%, rgba(14,17,15,.28) 64%, rgba(14,17,15,.14) 100%),
+  linear-gradient(to top, rgba(14,17,15,.74) 0%, rgba(14,17,15,0) 44%)}
+.hero .wrap{position:relative; z-index:2; width:100%; padding-top:60px}
+.hero-copy{max-width:680px; color:var(--na-tmavom)}
+.hero .tag{color:var(--zlata); margin-bottom:22px}
+.hero .display{margin-bottom:24px}
+.hero .lead{color:#ded9cb; margin-bottom:34px; max-width:34em}
+.hero-cta{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:52px}
+.hero-facts{display:grid; grid-template-columns:1fr; border-top:1px solid rgba(235,231,220,.24); color:var(--na-tmavom)}
+@media(min-width:720px){ .hero-facts{grid-template-columns:repeat(3,1fr)} }
+.fact{padding:20px 0 26px}
+@media(min-width:720px){ .fact{padding:22px 28px 30px; border-left:1px solid rgba(235,231,220,.2)} .fact:first-child{padding-left:0; border-left:0} }
+.fact b{display:block; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:34px; line-height:1; margin-bottom:6px}
+.fact span{font-size:14.5px; color:var(--na-tmavom-2)}
+
+/* vnútorná hlavička podstránky */
+.top{background:var(--mlyn); color:var(--na-tmavom); padding:14px 0 clamp(52px,6.5vw,92px)}
+.top .tag{color:var(--zlata); margin-bottom:20px}
+.top .display{margin-bottom:24px}
+.top .lead{color:#ded9cb; max-width:33em; margin-bottom:32px}
+.meta-row{display:grid; grid-template-columns:1fr; border-top:1px solid rgba(235,231,220,.24); margin-top:16px}
+@media(min-width:720px){ .meta-row{grid-template-columns:repeat(4,1fr)} }
+.meta-row div{padding:18px 0 6px}
+@media(min-width:720px){ .meta-row div{padding:20px 24px 24px; border-left:1px solid rgba(235,231,220,.2)} .meta-row div:first-child{padding-left:0; border-left:0} }
+.meta-row b{display:block; font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:29px; line-height:1; margin-bottom:6px}
+.meta-row span{font-size:14.5px; color:var(--na-tmavom-2)}
+
+/* ---------- dvojstĺpec, zručnosti ---------- */
+.two-col{display:grid; gap:40px}
+@media(min-width:900px){ .two-col{grid-template-columns:1fr 1fr; gap:66px} }
+.split{display:grid; gap:40px}
+@media(min-width:900px){ .split{grid-template-columns:5fr 7fr; gap:72px; align-items:start} }
+
+.skills{display:grid; border-top:1px solid var(--linka)}
+@media(min-width:820px){ .skills{grid-template-columns:1fr 1fr} }
+.skill{padding:32px 0 30px; border-bottom:1px solid var(--linka)}
+@media(min-width:820px){
+  .skill{padding:36px 46px 34px}
+  .skill:nth-child(odd){padding-left:0; border-right:1px solid var(--linka)}
+  .skill:nth-child(even){padding-right:0}
+}
+.skill .h3{margin-bottom:10px}
+.skill p{margin:0; color:var(--text-2); font-size:17px}
+
+/* ---------- programy ---------- */
+.programy{display:grid; gap:20px}
+@media(min-width:720px){ .programy{grid-template-columns:1fr 1fr; gap:22px} }
+.program{padding:34px 30px 32px; display:flex; flex-direction:column; color:var(--na-tmavom)}
+.p-mach{background:var(--mach)}
+.p-voda{background:var(--voda)}
+.p-tehla{background:var(--tehla)}
+.p-mlyn{background:var(--mlyn); border:1px solid rgba(196,154,90,.45)}
+.program .kod{font-family:"Barlow Condensed",sans-serif; font-weight:600; text-transform:uppercase;
+  letter-spacing:.16em; font-size:12.5px; color:var(--zlata); margin:0 0 6px}
+.program .komu{font-size:14.5px; color:rgba(235,231,220,.88); margin:0 0 18px}
+.program h3{font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:30px; line-height:1;
+  letter-spacing:-.01em; text-transform:uppercase; margin:0 0 14px}
+.program p.pop{font-size:16.5px; color:rgba(235,231,220,.86); margin-bottom:18px}
+.program ul{list-style:none; margin:0 0 24px; padding:0; font-size:14.5px; color:rgba(235,231,220,.9)}
+.program ul li{padding:7px 0; border-bottom:1px solid rgba(235,231,220,.16)}
+.program .link{margin-top:auto; align-self:flex-start}
+
+/* ---------- pravidlá ---------- */
+.rules{display:grid; gap:0; border-top:1px solid rgba(235,231,220,.26)}
+@media(min-width:760px){ .rules{grid-template-columns:1fr 1fr; column-gap:48px} }
+.rule-item{padding:18px 0; border-bottom:1px solid rgba(235,231,220,.26); font-size:17px; display:flex; gap:14px}
+.rule-item span{color:var(--zlata); font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:18px}
+
+/* ---------- lektori ---------- */
+.people{display:grid; gap:40px}
+@media(min-width:820px){ .people{grid-template-columns:1fr 1fr; gap:48px} }
+.person{display:grid; grid-template-columns:1fr; gap:20px}
+@media(min-width:560px){ .person{grid-template-columns:168px 1fr; gap:26px; align-items:start} }
+.person .ph{aspect-ratio:3/4; background-size:cover; background-position:center 18%; background-color:#c9c3b4}
+.person .nm{font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:25px; text-transform:uppercase;
+  letter-spacing:.01em; margin:0 0 4px; line-height:1.05}
+.person .rl{font-size:14.5px; color:var(--vinova); font-weight:700; margin:0 0 14px}
+.person p{font-size:15.5px; line-height:1.6; color:var(--text-2); margin:0 0 .7em}
+.person .cert{font-size:14px; color:var(--text-3); margin-top:12px; padding-top:12px; border-top:1px solid var(--linka-jemna)}
+
+/* ---------- miesto ---------- */
+.place{display:grid; grid-template-columns:1fr}
+@media(min-width:900px){ .place{grid-template-columns:1fr 1fr} }
+.place-img{min-height:400px; background-size:cover; background-position:center}
+.place-copy{background:var(--mach); color:var(--na-tmavom); padding:clamp(40px,6vw,76px) 16px}
+@media(min-width:760px){ .place-copy{padding-left:48px; padding-right:48px} }
+@media(min-width:900px){ .place-copy{display:flex; flex-direction:column; justify-content:center} }
+.place-copy .tag{color:var(--zlata); margin-bottom:18px}
+.place-copy .h2{margin-bottom:20px}
+.place-copy p{color:rgba(235,231,220,.86)}
+.strip{display:grid; grid-template-columns:1fr}
+@media(min-width:760px){ .strip{grid-template-columns:repeat(3,1fr)} }
+.strip-img{min-height:280px; background-size:cover; background-position:center}
+.rel{position:relative}
+.strip-cap{position:absolute; left:0; bottom:0; padding:13px 17px; background:rgba(23,26,24,.76); color:var(--na-tmavom); font-size:13.5px}
+
+/* ---------- referencie ---------- */
+.refs{display:grid; gap:36px}
+@media(min-width:860px){ .refs{grid-template-columns:repeat(3,1fr); gap:40px} }
+.ref{border-top:2px solid var(--text); padding-top:26px}
+.ref q{display:block; quotes:none; font-size:19px; line-height:1.5; margin-bottom:26px; color:var(--text-2)}
+.ref q:before,.ref q:after{content:""}
+.ref .who{display:flex; align-items:center; gap:14px}
+.ref .av{width:52px; height:52px; flex:0 0 52px; border-radius:50%; border:1px dashed var(--linka);
+  display:grid; place-items:center; font-size:9.5px; text-align:center; color:var(--text-3); line-height:1.2; padding:4px}
+.ref .nm{font-weight:700; font-size:16px; line-height:1.3}
+.ref .co{font-size:14px; color:var(--text-3); line-height:1.3}
+
+/* ---------- ceny ---------- */
+.price-wrap{background:var(--piesok-svetly); border:1px solid var(--linka-jemna)}
+.b-piesok-svetly .price-wrap{background:var(--piesok)}
+.price-row{display:grid; grid-template-columns:1fr; gap:4px; padding:24px 20px; border-bottom:1px solid var(--linka-jemna)}
+@media(min-width:900px){ .price-row{grid-template-columns:3.1fr 1.4fr 1.2fr 1.1fr 1.6fr; align-items:center; gap:20px; padding:24px 30px} }
+.price-head{display:none; font-family:"Barlow Condensed",sans-serif; font-weight:600; text-transform:uppercase;
+  letter-spacing:.16em; font-size:12px; color:var(--text-3)}
+@media(min-width:900px){ .price-head{display:grid; padding-top:16px; padding-bottom:16px} }
+.price-row:last-child{border-bottom:0}
+.price-row .name{font-weight:700; font-size:18px}
+.price-row .meta{font-size:15px; color:var(--text-3)}
+.price-row .cost{font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:27px; letter-spacing:-.01em}
+.price-row.hi{background:var(--hlina)}
+.price-row.hi .cost{color:var(--vinova)}
+.badge{display:inline-block; background:var(--vinova); color:var(--piesok-svetly); font-size:11px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; padding:4px 9px; margin-left:10px; vertical-align:2px}
+.price-note{margin-top:20px; font-size:14px; color:var(--text-3)}
+
+/* ---------- otázky ---------- */
+.faq{border-top:1px solid var(--linka)}
+.faq details{border-bottom:1px solid var(--linka)}
+.faq summary{list-style:none; cursor:pointer; padding:24px 44px 24px 0; position:relative;
+  font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:25px; line-height:1.15; text-transform:uppercase; letter-spacing:-.005em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+"; position:absolute; right:4px; top:20px; font-family:system-ui; font-size:26px; color:var(--vinova); font-weight:400}
+.faq details[open] summary:after{content:"\2013"}
+.faq .ans{padding:0 0 26px; max-width:68ch; color:var(--text-2); font-size:17px}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* ---------- formulár ---------- */
+.form-grid{display:grid; gap:40px}
+@media(min-width:900px){ .form-grid{grid-template-columns:5fr 7fr; gap:72px} }
+.field{margin-bottom:20px}
+.field label{display:block; font-size:14px; font-weight:600; margin-bottom:7px; color:rgba(235,231,220,.86)}
+.field input,.field select,.field textarea{width:100%; padding:14px 16px; font:inherit; font-size:16px;
+  background:rgba(235,231,220,.08); border:1px solid rgba(235,231,220,.32); color:var(--na-tmavom); border-radius:0}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--zlata); outline-offset:1px}
+.field select option{color:#171a18}
+.two{display:grid}
+@media(min-width:600px){ .two{grid-template-columns:1fr 1fr; gap:0 20px} }
+.contact-list{list-style:none; margin:0; padding:0}
+.contact-list li{padding:14px 0; border-bottom:1px solid rgba(235,231,220,.22)}
+.contact-list b{display:block; font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--na-tmavom-2); font-weight:600; margin-bottom:4px; font-family:"Barlow Condensed",sans-serif}
+.contact-list a{color:var(--na-tmavom)}
+
+/* ---------- pätička ---------- */
+.foot{background:var(--mlyn); color:var(--na-tmavom-2); padding:64px 0 40px; font-size:15px}
+.foot-grid{display:grid; gap:32px}
+@media(min-width:760px){ .foot-grid{grid-template-columns:2fr 1fr 1fr 1.4fr; gap:40px} }
+.foot h4{font-family:"Barlow Condensed",sans-serif; font-weight:600; text-transform:uppercase;
+  letter-spacing:.16em; font-size:12px; color:#b0aa9b; margin:0 0 14px}
+.foot a{color:#d2cdbf; text-decoration:none; display:block; padding:4px 0}
+.foot a:hover{color:var(--na-tmavom); text-decoration:underline}
+.foot-bottom{margin-top:48px; padding-top:22px; border-top:1px solid rgba(235,231,220,.16);
+  display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; font-size:13.5px}
+
+/* ---------- čitateľnosť textu na tmavých plochách ---------- */
+/* Pozor: tieto pravidlá musia zostať na konci súboru, prepisujú svetlé varianty. */
+.on-dark, .b-mlyn, .b-mach, .b-voda, .b-tehla, .top, .place-copy{color:var(--na-tmavom)}
+
+.on-dark .lead, .b-mlyn .lead, .b-mach .lead, .b-voda .lead, .b-tehla .lead,
+.top .lead, .place-copy .lead,
+.on-dark .sec-head .lead, .b-mlyn .sec-head .lead, .b-mach .sec-head .lead,
+.b-voda .sec-head .lead, .b-tehla .sec-head .lead{color:#dcd7c9}
+
+.on-dark p, .b-mlyn p, .b-mach p, .b-voda p, .b-tehla p,
+.top p, .place-copy p{color:var(--na-tmavom)}
+
+.on-dark .quiet, .b-mlyn .quiet, .b-mach .quiet, .b-voda .quiet, .b-tehla .quiet,
+.top .quiet, .place-copy .quiet,
+.on-dark .cert, .b-mlyn .cert, .b-mach .cert, .b-voda .cert, .b-tehla .cert{color:#c6c0b1}
+
+/* zlatá je na čiernej čitateľná, na farebných plochách potrebuje svetlejší odtieň */
+.b-mach .tag, .b-voda .tag, .b-tehla .tag, .place-copy .tag,
+.program .kod, .program .link-zlata{color:var(--zlata-svetla)}
+.program .link-zlata{border-bottom-color:rgba(227,189,132,.65)}
+
+/* nadradené pravidlo pre zlatý nadpis sekcie na farebných tmavých plochách */
+.b-mach .sec-head .tag, .b-voda .sec-head .tag, .b-tehla .sec-head .tag,
+.place-copy .sec-head .tag{color:var(--zlata-svetla)}
+
+/* ---------- galéria priestorov ---------- */
+.galeria{display:grid; gap:14px; grid-template-columns:1fr; margin-top:8px}
+@media(min-width:620px){ .galeria{grid-template-columns:1fr 1fr} }
+@media(min-width:980px){ .galeria{grid-template-columns:repeat(3,1fr)} }
+.gfoto{margin:0}
+.gfoto img{width:100%; aspect-ratio:4/3; object-fit:cover; background:#cdc8ba}
+.gfoto figcaption{font-size:14px; color:var(--text-3); padding:9px 2px 0; line-height:1.35}
+
+/* ---------- video prehliadka ---------- */
+.video-ramec{background:#0e110f; border:1px solid rgba(235,231,220,.2)}
+.video-ramec video{width:100%; height:auto; display:block}
+.video-odkaz{position:relative; display:block; text-decoration:none; color:inherit}
+.video-odkaz img{width:100%; height:auto; display:block}
+.video-odkaz:after{content:""; position:absolute; inset:0; background:rgba(14,17,15,.28); transition:background .2s ease}
+.video-odkaz:hover:after{background:rgba(14,17,15,.12)}
+.video-hrat{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:2;
+  display:inline-flex; align-items:center; gap:13px; background:var(--vinova); color:var(--piesok-svetly);
+  font-weight:700; font-size:16px; padding:16px 28px}
+.video-odkaz:hover .video-hrat{background:var(--vinova-tmava)}
+.video-pod{display:flex; flex-wrap:wrap; gap:18px; justify-content:space-between; align-items:center; margin-top:18px; font-size:14.5px}
